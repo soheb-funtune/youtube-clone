@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
 import "./main-page.css";
 import moment from "moment";
+import { CounterState } from "../state/context/context";
 
-const MainPage = ({ category }) => {
+const MainPage = () => {
+  const { category } = CounterState();
   const [list, setList] = useState([]);
+
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchData = async () => {
       const res = await fetch(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${
@@ -31,7 +35,7 @@ const MainPage = ({ category }) => {
   return (
     <div className="grid-container">
       {list?.map((item, i) => (
-        <div className="grid-item">
+        <Link to={`/video/${item?.id}`} key={i} className="grid-item">
           <div>
             <img
               style={{ width: "100%" }}
@@ -45,7 +49,9 @@ const MainPage = ({ category }) => {
                 textAlign: "left",
               }}
             >
-              {item?.snippet?.title}
+              {item?.snippet?.title?.length > 35
+                ? `${item?.snippet?.title?.substring(0, 35)}...`
+                : item?.snippet?.title}
             </h2>
             <h3
               style={{
@@ -55,7 +61,9 @@ const MainPage = ({ category }) => {
                 textAlign: "left",
               }}
             >
-              {item?.snippet?.channelTitle}
+              {item?.snippet?.channelTitle?.length > 35
+                ? `${item?.snippet?.channelTitle?.substring(0, 35)}...`
+                : item?.snippet?.channelTitle}
             </h3>
             <p
               style={{
@@ -69,7 +77,7 @@ const MainPage = ({ category }) => {
               {moment(item?.snippet?.publishedAt).fromNow()}{" "}
             </p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
@@ -32,7 +32,9 @@ import { SiYoutubeshorts } from "react-icons/si";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { CiYoutube } from "react-icons/ci";
 import MainPage from "../../pages/MainPage";
+import { Outlet } from "react-router-dom";
 import "./sidebar.css";
+import { CounterState } from "../../state/context/context";
 
 const drawerWidth = 200;
 
@@ -103,8 +105,9 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export const Sidebar = ({ children }) => {
+export const Sidebar = () => {
   const [category, setCategory] = useState(0);
+  const { dispatch } = CounterState();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
 
@@ -115,6 +118,10 @@ export const Sidebar = ({ children }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    dispatch({ type: "CATEGORY", payload: category });
+  }, [category]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -142,6 +149,11 @@ export const Sidebar = ({ children }) => {
           >
             <TfiMenu sx={{ color: "black" }} />
           </IconButton>
+          <img
+            src={
+              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dyoutube%2Blogo&psig=AOvVaw0uZ0QGcX8I_6D0ZwlwoTHk&ust=1709877581186000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIDr0Zny4oQDFQAAAAAdAAAAABAE"
+            }
+          />
         </Toolbar>
       </AppBar>
       <Drawer
@@ -160,7 +172,7 @@ export const Sidebar = ({ children }) => {
         >
           <IconButton
             sx={{
-              marginRight: 5,
+              marginLeft: 2,
               background: "white",
             }}
             onClick={handleDrawerOpen}
@@ -264,7 +276,7 @@ export const Sidebar = ({ children }) => {
         component="main"
         sx={{ flexGrow: 1, p: 2, mt: 6, border: "none !important" }}
       >
-        <MainPage category={category} />
+        <Outlet />
       </Box>
     </Box>
   );

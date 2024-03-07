@@ -1,0 +1,27 @@
+.video-grid-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 80%;
+  margin: auto;
+}
+
+.comment-section {
+  margin-top: 20px;
+  background: lightgray;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+@media (max-width: 1024px) {
+  .video-grid-container {
+    width: 100%;
+    margin: auto;
+  }
+}
+@media (max-width: 993px) {
+  .video-grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
