@@ -1,4 +1,9 @@
+.MuiDrawer-paper {
+  /* border: none; */
+  box-shadow: 1px 1px 5px gray;
+}
 .MuiDrawer-paper::-webkit-scrollbar {
   display: none; /* Hide the scrollbar */
+
   padding: 0px 10px !important;
 }

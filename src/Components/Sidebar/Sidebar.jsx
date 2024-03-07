@@ -13,6 +13,16 @@ import { TfiMenu } from "react-icons/tfi";
 // import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { FaChevronLeft } from "react-icons/fa";
 import { FaAngleRight } from "react-icons/fa6";
+import { MdOutlineSportsBasketball } from "react-icons/md";
+import { SiYoutubegaming } from "react-icons/si";
+import { SiDsautomobiles } from "react-icons/si";
+import { BiSolidCameraMovie } from "react-icons/bi";
+import { GrTechnology } from "react-icons/gr";
+import { IoMdMusicalNotes } from "react-icons/io";
+import { TbBrandBlogger } from "react-icons/tb";
+import { ImNewspaper } from "react-icons/im";
+import { MdSubscriptions } from "react-icons/md";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -21,14 +31,14 @@ import { IoHomeOutline } from "react-icons/io5";
 import { SiYoutubeshorts } from "react-icons/si";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { CiYoutube } from "react-icons/ci";
-import { Outlet } from "react-router-dom";
 import MainPage from "../../pages/MainPage";
 import "./sidebar.css";
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
+  border: "none",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -37,6 +47,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
+  border: "none",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -44,7 +55,7 @@ const closedMixin = (theme) => ({
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(10)} + 1px)`,
   },
 });
 
@@ -109,7 +120,12 @@ export const Sidebar = ({ children }) => {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
-        sx={{ background: "white", boxShadow: "none", color: "black" }}
+        sx={{
+          background: "white",
+          boxShadow: "none",
+          zIndex: 999,
+          color: "black",
+        }}
         position="fixed"
         open={open}
       >
@@ -121,24 +137,25 @@ export const Sidebar = ({ children }) => {
             edge="start"
             sx={{
               marginRight: 5,
-              ...(open && { display: "none" }),
+              ...{ display: "none" },
             }}
           >
             <TfiMenu sx={{ color: "black" }} />
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        style={{ paddingLeft: "10px !important" }}
+        variant="permanent"
+        open={open}
+      >
         <DrawerHeader
           sx={{
             justifyContent: "left",
             position: "sticky",
             top: "0px",
-            zIndex: 99999,
-            // maxHeight: "50px !imporantant",
-            // maxWidth: "50px !imporantant",
+            zIndex: 1203,
             background: "white",
-            // boxShadow: "1px 1px 5px lightgray",
           }}
         >
           <IconButton
@@ -148,7 +165,7 @@ export const Sidebar = ({ children }) => {
             }}
             onClick={handleDrawerOpen}
           >
-            <TfiMenu sx={{ color: "black" }} />
+            <TfiMenu />
           </IconButton>
         </DrawerHeader>
 
@@ -156,47 +173,43 @@ export const Sidebar = ({ children }) => {
           {[
             { ReactIcon: IoHomeOutline, categoryId: 0, text: "Home" },
             {
-              ReactIcon: MdOutlineSubscriptions,
-              categoryId: 0,
+              ReactIcon: MdOutlineSportsBasketball,
+              categoryId: 17,
               text: "Shorts",
             },
             {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: SiYoutubegaming,
               categoryId: 20,
               text: "Gaming",
             },
             {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: SiDsautomobiles,
               categoryId: 2,
               text: "Auto-Mobiles",
             },
+
             {
-              ReactIcon: MdOutlineSubscriptions,
-              categoryId: 17,
-              text: "Sports",
-            },
-            {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: BiSolidCameraMovie,
               categoryId: 24,
               text: "Intertainments",
             },
             {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: GrTechnology,
               categoryId: 28,
               text: "Technology",
             },
             {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: IoMdMusicalNotes,
               categoryId: 10,
               text: "Music",
             },
             {
-              ReactIcon: MdOutlineSubscriptions,
+              ReactIcon: TbBrandBlogger,
               categoryId: 22,
               text: "Blogs",
             },
-            { ReactIcon: MdOutlineSubscriptions, categoryId: 25, text: "News" },
-            { ReactIcon: SiYoutubeshorts, categoryId: 0, text: "Subscription" },
+            { ReactIcon: ImNewspaper, categoryId: 25, text: "News" },
+            { ReactIcon: MdSubscriptions, categoryId: 0, text: "Subscription" },
             { ReactIcon: CiYoutube, categoryId: 0, text: "You" },
           ].map(({ ReactIcon, text, categoryId }, index) => (
             <ListItem
@@ -205,10 +218,11 @@ export const Sidebar = ({ children }) => {
               onClick={() => setCategory(categoryId)}
               sx={{
                 display: "flex",
-                borderRadius: "20px",
+                paddingLeft: "10px",
+                paddingRight: "10px",
                 justifyContent: "center",
                 "&:hover": {
-                  borderRadius: "20px !important",
+                  // borderRadius: "20px !important",
                 },
               }}
             >
@@ -218,6 +232,7 @@ export const Sidebar = ({ children }) => {
                   px: 2.5,
                   alignItems: "center",
                   display: "flex",
+                  borderRadius: "10px",
                   flexDirection: open ? "row" : "column",
                   alineItems: "center",
                 }}
@@ -247,7 +262,7 @@ export const Sidebar = ({ children }) => {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 5, border: "none !important" }}
+        sx={{ flexGrow: 1, p: 2, mt: 6, border: "none !important" }}
       >
         <MainPage category={category} />
       </Box>

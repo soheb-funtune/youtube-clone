@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Grid } from "@mui/material";
+import "./main-page.css";
+import moment from "moment";
 
 const MainPage = ({ category }) => {
   const [list, setList] = useState([]);
@@ -27,15 +29,18 @@ const MainPage = ({ category }) => {
     }
   };
   return (
-    <Grid container columnGap={4} rowGap={2}>
+    <div className="grid-container">
       {list?.map((item, i) => (
-        <Grid item xs={3} key={i} style={{ paddingLeft: "0px", margin: "0px" }}>
-          <div style={{ width: "100%" }}>
-            <img src={item?.snippet?.thumbnails?.medium?.url} />
+        <div className="grid-item">
+          <div>
+            <img
+              style={{ width: "100%" }}
+              src={item?.snippet?.thumbnails?.medium?.url}
+            />
             <h2
               style={{
                 padding: "0px",
-                fontSize: "15px",
+                fontSize: "14px",
                 margin: "0px",
                 textAlign: "left",
               }}
@@ -45,7 +50,7 @@ const MainPage = ({ category }) => {
             <h3
               style={{
                 padding: "0px",
-                fontSize: "15px",
+                fontSize: "14px",
                 margin: "0px",
                 textAlign: "left",
               }}
@@ -56,17 +61,17 @@ const MainPage = ({ category }) => {
               style={{
                 padding: "0px",
                 margin: "0px",
-                fontSize: "12px",
+                fontSize: "11px",
                 textAlign: "left",
               }}
             >
-              {handleView(item?.statistics?.viewCount)} Views &bull{" "}
-              {item?.snippet?.publishedAt}{" "}
+              {handleView(item?.statistics?.viewCount)} Views{" "}
+              {moment(item?.snippet?.publishedAt).fromNow()}{" "}
             </p>
           </div>
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   );
 };
 
