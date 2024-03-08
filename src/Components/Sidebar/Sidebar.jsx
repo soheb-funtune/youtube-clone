@@ -33,9 +33,13 @@ import { SiYoutubetv } from "react-icons/si";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { CiYoutube } from "react-icons/ci";
 import MainPage from "../../pages/MainPage";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./sidebar.css";
 import { CounterState } from "../../state/context/context";
+import youtubeLogo from "../../../public/youtube.png";
+
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 
 const drawerWidth = 200;
 
@@ -80,8 +84,9 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
+    zIndex: 999,
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `calc(100% )`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -94,7 +99,7 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   // marginLeft: -drawerWidth,
-  zIndex: 999999999,
+  zIndex: 99,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -109,12 +114,19 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export const Sidebar = () => {
-  const [category, setCategory] = useState(0);
   const { dispatch } = CounterState();
+  const location = useLocation();
+  const [category, setCategory] = useState(0);
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const lessthan1024 = useMediaQuery("(max-width:1024px)");
 
+  console.log({ location });
+  useEffect(() => {
+    if (location?.pathname?.includes("video")) {
+      setOpen(false);
+    }
+  }, [location]);
   const handleDrawerOpen = () => {
     open ? setOpen(false) : setOpen(true);
   };
@@ -140,29 +152,23 @@ export const Sidebar = () => {
         position="fixed"
         open={open}
       >
-        <Toolbar>
+        <Toolbar style={{ padding: "0px 10px" }}>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
             sx={{
-              marginRight: 5,
-              ...{ display: "none" },
+              // marginLeft: 2,
+              background: "white",
+              ...(lessthan1024 && { display: "none" }),
             }}
+            onClick={handleDrawerOpen}
           >
-            <TfiMenu sx={{ color: "black" }} />
+            <TfiMenu />
           </IconButton>
-          <div
-            className="logo-div"
-            style={{ marginLeft: open ? "0px" : "45px" }}
-          >
+          <div className="logo-div">
             <img
-              style={{ width: "auto", height: "35px" }}
-              src={"./youtube.png"}
+              style={{ width: "auto", height: "32px" }}
+              src={youtubeLogo}
               alt="logo"
             />
-            {/* <SiYoutubetv /> */}
           </div>
         </Toolbar>
       </AppBar>
@@ -184,7 +190,7 @@ export const Sidebar = () => {
             background: "white",
           }}
         >
-          <IconButton
+          {/* <IconButton
             sx={{
               // marginLeft: 2,
               background: "white",
@@ -193,7 +199,7 @@ export const Sidebar = () => {
             onClick={handleDrawerOpen}
           >
             <TfiMenu />
-          </IconButton>
+          </IconButton> */}
         </DrawerHeader>
 
         <List>
@@ -289,6 +295,81 @@ export const Sidebar = () => {
           ))}
         </List>
       </Drawer>
+      <Box style={{ ...(!lessthan1024 && { display: "none" }) }}>
+        <BottomNavigation
+          sx={{
+            // width: 500,
+            overflowX: "scroll",
+            position: "fixed",
+            bottom: "0px",
+            right: "0px",
+            left: "0px",
+            padding: "0px 30px 0px 30px",
+            boxSizing: "border-box",
+          }}
+          showLabels={true}
+          // value={value}
+          // onChange={(event, newValue) => {
+          //   setValue(newValue);
+          // }}
+        >
+          {[
+            { ReactIcon: IoHomeOutline, categoryId: 0, text: "Home" },
+            {
+              ReactIcon: MdOutlineSportsBasketball,
+              categoryId: 17,
+              text: "Shorts",
+            },
+            {
+              ReactIcon: SiYoutubegaming,
+              categoryId: 20,
+              text: "Gaming",
+            },
+            // {
+            //   ReactIcon: SiDsautomobiles,
+            //   categoryId: 2,
+            //   text: "Auto-Mobiles",
+            // },
+
+            // {
+            //   ReactIcon: BiSolidCameraMovie,
+            //   categoryId: 24,
+            //   text: "Intertainments",
+            // },
+            {
+              ReactIcon: GrTechnology,
+              categoryId: 28,
+              text: "Technology",
+            },
+            {
+              ReactIcon: IoMdMusicalNotes,
+              categoryId: 10,
+              text: "Music",
+            },
+            {
+              ReactIcon: TbBrandBlogger,
+              categoryId: 22,
+              text: "Blogs",
+            },
+            { ReactIcon: ImNewspaper, categoryId: 25, text: "News" },
+            { ReactIcon: MdSubscriptions, categoryId: 0, text: "Subscription" },
+            { ReactIcon: CiYoutube, categoryId: 0, text: "You" },
+          ].map(({ ReactIcon, text, categoryId }, index) => (
+            <Link
+              key={index}
+              onClick={() => setCategory(categoryId)}
+              style={{ textDecoration: "none", color: "black" }}
+              to={"/"}
+            >
+              <BottomNavigationAction
+                label={text}
+                icon={<ReactIcon style={{ fontSize: "20px" }} />}
+              />
+            </Link>
+          ))}
+        </BottomNavigation>
+      </Box>
+
       <Box
         component="main"
         sx={{ flexGrow: 1, p: 2, mt: 6, border: "none !important" }}
