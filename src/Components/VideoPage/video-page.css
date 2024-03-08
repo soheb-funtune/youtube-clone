@@ -1,13 +1,21 @@
 .video-grid-container {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  width: 80%;
+  width: 90%;
+  gap: 15px;
   margin: auto;
 }
 
+.description-section {
+  margin-top: 20px;
+  background: #f1efef;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 13px;
+}
 .comment-section {
   margin-top: 20px;
-  background: lightgray;
+  /* background: lightgray; */
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 13px;

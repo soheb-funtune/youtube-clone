@@ -23,12 +23,16 @@ function App() {
           path: "/",
           element: <MainPage />,
         },
+        {
+          path: "video/:id",
+          element: <VideoPage />,
+        },
       ],
     },
-    {
-      path: "video/:id",
-      element: <VideoPage />,
-    },
+    // {
+    //   path: "video/:id",
+    //   element: <VideoPage />,
+    // },
   ]);
 
   return (
