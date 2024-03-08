@@ -8,3 +8,9 @@
   text-decoration: none;
   color: black;
 }
+
+@media (max-width: 993px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+import { Box, useMediaQuery } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -29,10 +29,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { IoHomeOutline } from "react-icons/io5";
 import { SiYoutubeshorts } from "react-icons/si";
+import { SiYoutubetv } from "react-icons/si";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { CiYoutube } from "react-icons/ci";
 import MainPage from "../../pages/MainPage";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./sidebar.css";
 import { CounterState } from "../../state/context/context";
 
@@ -57,7 +58,7 @@ const closedMixin = (theme) => ({
   overflowX: "hidden",
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
-    width: `calc(${theme.spacing(10)} + 1px)`,
+    width: `calc(${theme.spacing(7)} + 1px)`,
   },
 });
 
@@ -93,6 +94,7 @@ const Drawer = styled(MuiDrawer, {
 })(({ theme, open }) => ({
   width: drawerWidth,
   // marginLeft: -drawerWidth,
+  zIndex: 999999999,
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
@@ -111,6 +113,7 @@ export const Sidebar = () => {
   const { dispatch } = CounterState();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const lessthan1024 = useMediaQuery("(max-width:1024px)");
 
   const handleDrawerOpen = () => {
     open ? setOpen(false) : setOpen(true);
@@ -150,16 +153,26 @@ export const Sidebar = () => {
           >
             <TfiMenu sx={{ color: "black" }} />
           </IconButton>
-          <img
-            src={
-              "https://www.google.com/url?sa=i&url=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3Dyoutube%2Blogo&psig=AOvVaw0uZ0QGcX8I_6D0ZwlwoTHk&ust=1709877581186000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCIDr0Zny4oQDFQAAAAAdAAAAABAE"
-            }
-          />
+          <div
+            className="logo-div"
+            style={{ marginLeft: open ? "0px" : "45px" }}
+          >
+            <img
+              style={{ width: "auto", height: "35px" }}
+              src={"./youtube.png"}
+              alt="logo"
+            />
+            {/* <SiYoutubetv /> */}
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
-        style={{ paddingLeft: "10px !important" }}
-        variant="permanent"
+        style={{
+          // paddingLeft: "10px !important",
+          ...(lessthan1024 && { display: "none" }),
+        }}
+        variant={lessthan1024 ? "permanent" : "permanent"}
+        anchor="left"
         open={open}
       >
         <DrawerHeader
@@ -173,8 +186,9 @@ export const Sidebar = () => {
         >
           <IconButton
             sx={{
-              marginLeft: 2,
+              // marginLeft: 2,
               background: "white",
+              ...(lessthan1024 && { display: "none" }),
             }}
             onClick={handleDrawerOpen}
           >
@@ -195,17 +209,17 @@ export const Sidebar = () => {
               categoryId: 20,
               text: "Gaming",
             },
-            {
-              ReactIcon: SiDsautomobiles,
-              categoryId: 2,
-              text: "Auto-Mobiles",
-            },
+            // {
+            //   ReactIcon: SiDsautomobiles,
+            //   categoryId: 2,
+            //   text: "Auto-Mobiles",
+            // },
 
-            {
-              ReactIcon: BiSolidCameraMovie,
-              categoryId: 24,
-              text: "Intertainments",
-            },
+            // {
+            //   ReactIcon: BiSolidCameraMovie,
+            //   categoryId: 24,
+            //   text: "Intertainments",
+            // },
             {
               ReactIcon: GrTechnology,
               categoryId: 28,
@@ -225,51 +239,53 @@ export const Sidebar = () => {
             { ReactIcon: MdSubscriptions, categoryId: 0, text: "Subscription" },
             { ReactIcon: CiYoutube, categoryId: 0, text: "You" },
           ].map(({ ReactIcon, text, categoryId }, index) => (
-            <ListItem
-              key={text}
-              disablePadding
-              onClick={() => setCategory(categoryId)}
-              sx={{
-                display: "flex",
-                paddingLeft: "10px",
-                paddingRight: "10px",
-                justifyContent: "center",
-                "&:hover": {
-                  // borderRadius: "20px !important",
-                },
-              }}
-            >
-              <ListItemButton
+            <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
+              <ListItem
+                key={text}
+                disablePadding
+                onClick={() => setCategory(categoryId)}
                 sx={{
-                  minHeight: 48,
-                  px: 2.5,
-                  alignItems: "center",
                   display: "flex",
-                  borderRadius: "10px",
-                  flexDirection: open ? "row" : "column",
-                  alineItems: "center",
+                  // paddingLeft: "10px",
+                  // paddingRight: "10px",
+                  justifyContent: "center",
+                  "&:hover": {
+                    // borderRadius: "20px !important",
+                  },
                 }}
               >
-                <ListItemIcon
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    marginRight: open ? "20px" : "0px",
+                    minHeight: 48,
+                    px: 2.5,
+                    alignItems: "center",
+                    display: "flex",
+                    borderRadius: "10px",
+                    flexDirection: open ? "row" : "column",
+                    alineItems: "center",
                   }}
                 >
-                  <ReactIcon sx={{ margin: "auto" }} />
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={{
-                    span: {
-                      fontSize: open ? "14px !important" : "10px !important",
-                    },
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                      marginRight: open ? "20px" : "0px",
+                    }}
+                  >
+                    <ReactIcon sx={{ margin: "auto" }} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={text}
+                    sx={{
+                      span: {
+                        fontSize: open ? "14px !important" : "10px !important",
+                      },
+                    }}
+                  />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>

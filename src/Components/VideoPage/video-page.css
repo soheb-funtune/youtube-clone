@@ -14,14 +14,14 @@
   font-size: 13px;
 }
 .comment-section {
-  margin-top: 20px;
+  margin: 20px 0px;
   /* background: lightgray; */
   padding: 10px 15px;
   border-radius: 20px;
   font-size: 13px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1260px) {
   .video-grid-container {
     width: 100%;
     margin: auto;

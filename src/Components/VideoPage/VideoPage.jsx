@@ -24,7 +24,7 @@ const VideoPage = () => {
       ).then((res) => res.json());
       setVideoDetails(res?.items[0]);
       const comments = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${id}&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=5&videoId=${id}&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
       ).then((res) => res.json());
       setCommentData(comments?.items);
     };
@@ -153,76 +153,78 @@ const VideoPage = () => {
               {videoDetails?.snippet?.description?.slice(0, 250)}
             </p>
           </div>
-          <div
-            className="comment-section"
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-          >
-            {commentData?.map(({ snippet, statistics }, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                }}
-              >
-                <Avatar
-                  alt="Remy Sharp"
-                  src={snippet?.topLevelComment?.snippet?.authorProfileImageUrl}
-                />
-                <div>
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "5px",
-                      fontSize: "16px",
-                      marginBottom: "2px",
-                    }}
-                  >
-                    <b>
-                      {snippet?.topLevelComment?.snippet?.authorDisplayName}
-                    </b>
-                    <small style={{ fontSize: "14px" }}>
-                      {" "}
-                      {moment(
-                        snippet?.topLevelComment?.snippet?.publishedAt
-                      ).fromNow()}{" "}
-                    </small>
-                  </div>
+        </div>
+      </div>
+      {/* right hand side */}
+      <div>
+        <div
+          className="comment-section"
+          style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+        >
+          {commentData?.map(({ snippet, statistics }, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                gap: "5px",
+              }}
+            >
+              <Avatar
+                alt="Remy Sharp"
+                src={snippet?.topLevelComment?.snippet?.authorProfileImageUrl}
+              />
+              <div>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "5px",
+                    fontSize: "16px",
+                    marginBottom: "2px",
+                    flexDirection: "column",
+                  }}
+                >
+                  <b>{snippet?.topLevelComment?.snippet?.authorDisplayName}</b>
+                  {/* <small style={{ fontSize: "14px" }}>
+                    {" "}
+                    {moment(
+                      snippet?.topLevelComment?.snippet?.publishedAt
+                    ).fromNow()}{" "}
+                  </small> */}
                   <small style={{ fontSize: "14px" }}>
                     {" "}
                     {snippet?.topLevelComment?.snippet?.textDisplay}
                   </small>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                      fontSize: "14px",
-                      padding: "10px 0px",
-                    }}
-                  >
-                    <SlLike
-                      style={{
-                        fontSize: "20px",
-                      }}
-                    />
-                    <span>
-                      {handleView(snippet?.topLevelComment?.snippet?.likeCount)}
-                    </span>
-
-                    <SlDislike
-                      style={{
-                        fontSize: "20px",
-                      }}
-                    />
-                  </div>
                 </div>
+                {/* <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    fontSize: "14px",
+                    padding: "10px 0px",
+                  }}
+                >
+                  <SlLike
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  />
+                  <span>
+                    {handleView(snippet?.topLevelComment?.snippet?.likeCount)}
+                  </span>
+
+                  <SlDislike
+                    style={{
+                      fontSize: "20px",
+                    }}
+                  />
+                </div> */}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
+        <Recomanded />
       </div>
-      <Recomanded />
     </div>
   );
 };
