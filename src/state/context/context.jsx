@@ -4,6 +4,7 @@ import React, { createContext, useContext, useReducer } from "react";
 const initialState = {
   count: 0,
   category: null,
+  searchText: null,
 };
 
 // Define your reducer function
@@ -11,6 +12,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case "CATEGORY":
       return { ...state, category: action.payload };
+    case "SEARCH":
+      return { ...state, searchText: action.payload };
     case "INCREMENT":
       return { ...state, count: state.count + 1 };
     case "DECREMENT":

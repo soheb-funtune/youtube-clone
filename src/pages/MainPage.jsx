@@ -7,7 +7,7 @@ import { CounterState } from "../state/context/context";
 import { handleView } from "../assets/data";
 
 const MainPage = () => {
-  const { category } = CounterState();
+  const { category, searchText } = CounterState();
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -18,11 +18,28 @@ const MainPage = () => {
           category || 0
         }&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
       ).then((res) => res.json());
+      if (res?.error) {
+        alert(res?.error?.message);
+      }
       setList(res?.items);
       console.log({ res });
     };
-    fetchData();
+    !searchText && fetchData();
   }, [category]);
+
+  // search text
+
+  useEffect(() => {
+    const searchData = async () => {
+      const res = await fetch(
+        `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=${searchText}&videoCaption=any&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+      ).then((res) => res.json());
+      console.log(res);
+      setList(res?.items);
+    };
+
+    searchData();
+  }, [searchText]);
 
   return (
     <div className="grid-container">

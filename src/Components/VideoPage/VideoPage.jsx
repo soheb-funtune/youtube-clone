@@ -8,11 +8,13 @@ import "./video-page.css";
 import moment from "moment";
 import Recomanded from "../RecomandedSection/Recomanded";
 import { handleView } from "../../assets/data";
+import { CounterState } from "../../state/context/context";
 const VideoPage = () => {
   const [channelData, setChannelData] = useState({});
   const [videoDetails, setVideoDetails] = useState({});
   const [commentData, setCommentData] = useState([]);
   let { id } = useParams();
+  const { searchText } = CounterState();
 
   useEffect(() => {
     window.scrollTo(0, 0);
