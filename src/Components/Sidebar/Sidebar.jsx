@@ -36,10 +36,9 @@ import MainPage from "../../pages/MainPage";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import "./sidebar.css";
 import { CounterState } from "../../state/context/context";
-import youtubeLogo from "../../../public/youtube.png";
-
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import BottomNavigationCompo from "../BottomNavigation/BottomNavigation";
+import { sidebarItemList } from "../../assets/data";
+import NavigationBar from "../NavigationBar/NavigationBar";
 
 const drawerWidth = 200;
 
@@ -153,28 +152,11 @@ export const Sidebar = () => {
         open={open}
       >
         <Toolbar style={{ padding: "0px 10px" }}>
-          <IconButton
-            sx={{
-              // marginLeft: 2,
-              background: "white",
-              ...(lessthan1024 && { display: "none" }),
-            }}
-            onClick={handleDrawerOpen}
-          >
-            <TfiMenu />
-          </IconButton>
-          <div className="logo-div">
-            <img
-              style={{ width: "auto", height: "32px" }}
-              src={youtubeLogo}
-              alt="logo"
-            />
-          </div>
+          <NavigationBar handleDrawerOpen={handleDrawerOpen} />
         </Toolbar>
       </AppBar>
       <Drawer
         style={{
-          // paddingLeft: "10px !important",
           ...(lessthan1024 && { display: "none" }),
         }}
         variant={lessthan1024 ? "permanent" : "permanent"}
@@ -203,48 +185,7 @@ export const Sidebar = () => {
         </DrawerHeader>
 
         <List>
-          {[
-            { ReactIcon: IoHomeOutline, categoryId: 0, text: "Home" },
-            {
-              ReactIcon: MdOutlineSportsBasketball,
-              categoryId: 17,
-              text: "Shorts",
-            },
-            {
-              ReactIcon: SiYoutubegaming,
-              categoryId: 20,
-              text: "Gaming",
-            },
-            // {
-            //   ReactIcon: SiDsautomobiles,
-            //   categoryId: 2,
-            //   text: "Auto-Mobiles",
-            // },
-
-            // {
-            //   ReactIcon: BiSolidCameraMovie,
-            //   categoryId: 24,
-            //   text: "Intertainments",
-            // },
-            {
-              ReactIcon: GrTechnology,
-              categoryId: 28,
-              text: "Technology",
-            },
-            {
-              ReactIcon: IoMdMusicalNotes,
-              categoryId: 10,
-              text: "Music",
-            },
-            {
-              ReactIcon: TbBrandBlogger,
-              categoryId: 22,
-              text: "Blogs",
-            },
-            { ReactIcon: ImNewspaper, categoryId: 25, text: "News" },
-            { ReactIcon: MdSubscriptions, categoryId: 0, text: "Subscription" },
-            { ReactIcon: CiYoutube, categoryId: 0, text: "You" },
-          ].map(({ ReactIcon, text, categoryId }, index) => (
+          {sidebarItemList()?.map(({ ReactIcon, text, categoryId }, index) => (
             <Link style={{ textDecoration: "none", color: "black" }} to={"/"}>
               <ListItem
                 key={text}
@@ -295,80 +236,7 @@ export const Sidebar = () => {
           ))}
         </List>
       </Drawer>
-      <Box style={{ ...(!lessthan1024 && { display: "none" }) }}>
-        <BottomNavigation
-          sx={{
-            // width: 500,
-            overflowX: "scroll",
-            position: "fixed",
-            bottom: "0px",
-            right: "0px",
-            left: "0px",
-            padding: "0px 30px 0px 30px",
-            boxSizing: "border-box",
-          }}
-          showLabels={true}
-          // value={value}
-          // onChange={(event, newValue) => {
-          //   setValue(newValue);
-          // }}
-        >
-          {[
-            { ReactIcon: IoHomeOutline, categoryId: 0, text: "Home" },
-            {
-              ReactIcon: MdOutlineSportsBasketball,
-              categoryId: 17,
-              text: "Shorts",
-            },
-            {
-              ReactIcon: SiYoutubegaming,
-              categoryId: 20,
-              text: "Gaming",
-            },
-            // {
-            //   ReactIcon: SiDsautomobiles,
-            //   categoryId: 2,
-            //   text: "Auto-Mobiles",
-            // },
-
-            // {
-            //   ReactIcon: BiSolidCameraMovie,
-            //   categoryId: 24,
-            //   text: "Intertainments",
-            // },
-            {
-              ReactIcon: GrTechnology,
-              categoryId: 28,
-              text: "Technology",
-            },
-            {
-              ReactIcon: IoMdMusicalNotes,
-              categoryId: 10,
-              text: "Music",
-            },
-            {
-              ReactIcon: TbBrandBlogger,
-              categoryId: 22,
-              text: "Blogs",
-            },
-            { ReactIcon: ImNewspaper, categoryId: 25, text: "News" },
-            { ReactIcon: MdSubscriptions, categoryId: 0, text: "Subscription" },
-            { ReactIcon: CiYoutube, categoryId: 0, text: "You" },
-          ].map(({ ReactIcon, text, categoryId }, index) => (
-            <Link
-              key={index}
-              onClick={() => setCategory(categoryId)}
-              style={{ textDecoration: "none", color: "black" }}
-              to={"/"}
-            >
-              <BottomNavigationAction
-                label={text}
-                icon={<ReactIcon style={{ fontSize: "20px" }} />}
-              />
-            </Link>
-          ))}
-        </BottomNavigation>
-      </Box>
+      <BottomNavigationCompo setCategory={setCategory} category={category} />
 
       <Box
         component="main"

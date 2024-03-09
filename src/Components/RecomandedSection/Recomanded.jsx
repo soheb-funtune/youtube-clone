@@ -45,7 +45,7 @@ const Recomanded = ({}) => {
           }}
         >
           <img
-            style={{ width: "200px", height: "auto" }}
+            style={{ width: "200px", height: "auto", borderRadius: "10px" }}
             src={snippet?.thumbnails?.medium?.url}
           />
           <div

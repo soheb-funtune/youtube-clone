@@ -7,9 +7,3 @@
 
   padding: 0px 10px !important;
 }
-.logo-div {
-  margin-left: 20px;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease;
-}

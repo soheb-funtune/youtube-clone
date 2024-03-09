@@ -7,6 +7,7 @@ import { SlDislike } from "react-icons/sl";
 import "./video-page.css";
 import moment from "moment";
 import Recomanded from "../RecomandedSection/Recomanded";
+import { handleView } from "../../assets/data";
 const VideoPage = () => {
   const [channelData, setChannelData] = useState({});
   const [videoDetails, setVideoDetails] = useState({});
@@ -44,29 +45,11 @@ const VideoPage = () => {
     fetchVideoDetails();
   }, [videoDetails?.snippet?.channelId]);
 
-  const handleView = (value) => {
-    if (value > 1000000) {
-      return Math.round(value / 1000000) + "M";
-    } else if (value > 100000) {
-      return Math.round(value / 100000) + "L";
-    } else if (value > 1000) {
-      return Math.round(value / 1000) + "K";
-    } else {
-      return value;
-    }
-  };
-
   return (
     <div className="video-grid-container">
       <div>
         <iframe
-          style={{
-            borderRadius: "20px",
-            width: "100%",
-            // height: "500px"
-          }}
-          // width="auto"
-          height="391"
+          className="iframe-css"
           src={`https://www.youtube.com/embed/${id}`}
           title="Rihanna, Avicii, Justin Bieber, Kygo, Selena Gomez, Alok, Bastille, David Guetta - Summer Nostalgia"
           frameborder="0"
@@ -125,7 +108,7 @@ const VideoPage = () => {
                   fontSize: "20px",
                 }}
               />
-              <span>{videoDetails?.statistics?.likeCount}</span>
+              <span>{handleView(videoDetails?.statistics?.likeCount)}</span>
               <Divider orientation="vertical" flexItem />
               <SlDislike
                 style={{

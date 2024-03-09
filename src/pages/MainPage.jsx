@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import "./main-page.css";
 import moment from "moment";
 import { CounterState } from "../state/context/context";
+import { handleView } from "../assets/data";
 
 const MainPage = () => {
   const { category } = CounterState();
@@ -23,22 +24,13 @@ const MainPage = () => {
     fetchData();
   }, [category]);
 
-  const handleView = (value) => {
-    if (value > 1000000) {
-      return Math.round(value / 1000000) + "M";
-    } else if (value > 10000) {
-      return Math.round(value / 10000) + "K";
-    } else {
-      return value;
-    }
-  };
   return (
     <div className="grid-container">
       {list?.map((item, i) => (
         <Link to={`/video/${item?.id}`} key={i} className="grid-item">
           <div>
             <img
-              style={{ width: "100%" }}
+              style={{ width: "100%", borderRadius: "10px" }}
               src={item?.snippet?.thumbnails?.medium?.url}
             />
             <h2

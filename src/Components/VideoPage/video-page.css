@@ -21,6 +21,12 @@
   font-size: 13px;
 }
 
+.iframe-css {
+  border-radius: 20px;
+  width: 100%;
+  height: 391px;
+}
+
 @media (max-width: 1260px) {
   .video-grid-container {
     width: 100%;
@@ -31,5 +37,10 @@
   .video-grid-container {
     display: grid;
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 767px) {
+  .iframe-css {
+    height: 260px;
   }
 }

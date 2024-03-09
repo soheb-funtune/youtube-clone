@@ -1,0 +1,42 @@
+.nav-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menu-logo-div {
+  display: flex;
+  align-items: center;
+}
+.logo-div {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.search-div {
+  position: relative;
+}
+.search-div .search-icon {
+  position: absolute;
+  right: 10px;
+  top: 22%;
+  font-size: 22px;
+}
+
+.search-div input {
+  padding: 10px 45px;
+  border-radius: 20px;
+  border: 1px solid;
+  width: 300px;
+}
+
+@media (max-width: 993px) {
+  .search-div input {
+    /* padding: 10px 45px;
+        border-radius: 20px;
+        border: 1px solid; */
+    width: 200px;
+  }
+}
