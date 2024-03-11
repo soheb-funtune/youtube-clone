@@ -44,7 +44,11 @@ const MainPage = () => {
   return (
     <div className="grid-container">
       {list?.map((item, i) => (
-        <Link to={`/video/${item?.id}`} key={i} className="grid-item">
+        <Link
+          to={`/video/${item?.id?.videoId || item?.id}`}
+          key={i}
+          className="grid-item"
+        >
           <div>
             <img
               style={{ width: "100%", borderRadius: "10px" }}

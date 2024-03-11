@@ -177,7 +177,7 @@ const VideoPage = () => {
                   </small> */}
                   <small style={{ fontSize: "14px" }}>
                     {" "}
-                    {snippet?.topLevelComment?.snippet?.textDisplay}
+                    {(snippet?.topLevelComment?.snippet?.textDisplay).toString()}
                   </small>
                 </div>
                 {/* <div

@@ -151,7 +151,7 @@ export const Sidebar = () => {
         position="fixed"
         open={open}
       >
-        <Toolbar style={{ padding: "0px 10px" }}>
+        <Toolbar style={{ padding: "0px 15px" }}>
           <NavigationBar handleDrawerOpen={handleDrawerOpen} />
         </Toolbar>
       </AppBar>
