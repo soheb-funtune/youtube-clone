@@ -19,12 +19,13 @@ const Recomanded = ({}) => {
     }
   };
 
+  console.log(import.meta.env.VITE_YOUTUBE_KEY);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&regionCode=US&videoCategoryId=${
           category || 0
-        }&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+        }&key=${import.meta.env.VITE_YOUTUBE_KEY}`
       ).then((res) => res.json());
       setRecomandedData(res?.items);
     };

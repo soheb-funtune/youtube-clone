@@ -23,11 +23,15 @@ const VideoPage = () => {
   useEffect(() => {
     const fetchVideoDetails = async () => {
       const res = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+        `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${
+          import.meta.env.VITE_YOUTUBE_KEY
+        }`
       ).then((res) => res.json());
       setVideoDetails(res?.items[0]);
       const comments = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=5&videoId=${id}&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+        `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=5&videoId=${id}&key=${
+          import.meta.env.VITE_YOUTUBE_KEY
+        }`
       ).then((res) => res.json());
       setCommentData(comments?.items);
     };
@@ -39,7 +43,9 @@ const VideoPage = () => {
   useEffect(() => {
     const fetchVideoDetails = async () => {
       const res = await fetch(
-        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${videoDetails?.snippet?.channelId}&key=AIzaSyAf3Q_XSa9EfW0zuxypgdlmlX2IHhN0m_I`
+        `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${
+          videoDetails?.snippet?.channelId
+        }&key=${import.meta.env.VITE_YOUTUBE_KEY}`
       ).then((res) => res.json());
       setChannelData(res?.items?.[0]);
     };
