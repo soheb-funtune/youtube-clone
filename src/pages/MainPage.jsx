@@ -55,7 +55,11 @@ const MainPage = () => {
           >
             <div>
               <img
-                style={{ width: "100%", borderRadius: "10px" }}
+                style={{
+                  width: "100%",
+                  borderRadius: "10px",
+                  maxHeight: "185px",
+                }}
                 src={item?.snippet?.thumbnails?.medium?.url}
               />
               <h2

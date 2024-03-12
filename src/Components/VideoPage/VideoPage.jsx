@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Avatar, Divider } from "@mui/material";
+import { Avatar, Divider, Skeleton } from "@mui/material";
 import { SlLike } from "react-icons/sl";
 import { SlDislike } from "react-icons/sl";
 
@@ -90,14 +90,18 @@ const VideoPage = () => {
                 src={channelData?.snippet?.thumbnails?.default?.url}
               />
               <div style={{ display: "flex", flexDirection: "column" }}>
-                <b>{channelData?.snippet?.title || "Channel Name"} </b>
-                <small>
-                  {" "}
-                  {handleView(
-                    channelData?.statistics?.subscriberCount || 0
-                  )}{" "}
-                  subscribers
-                </small>
+                <b>{channelData?.snippet?.title || <Skeleton />}</b>
+                {channelData?.statistics?.subscriberCount ? (
+                  <small>
+                    {" "}
+                    {handleView(
+                      channelData?.statistics?.subscriberCount || 0
+                    )}{" "}
+                    subscribers
+                  </small>
+                ) : (
+                  <Skeleton width={"70%"} />
+                )}
               </div>
             </div>
             <div

@@ -3,7 +3,7 @@
   grid-template-columns: 3fr 1fr;
   width: 90%;
   gap: 15px;
-  margin: auto;
+  margin: 15px auto;
 }
 
 .description-section {
