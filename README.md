@@ -1,4 +1,5 @@
-![Uploading my-youtube.PNG…]()
+![my-youtube](https://github.com/soheb-funtune/youtube-clone/assets/97585425/16bd97f2-a408-442c-b4b7-a699189ed3a2)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
